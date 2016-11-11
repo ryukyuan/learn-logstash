@@ -1,0 +1,23 @@
+
+elasticsearch:
+  image: local/elasticsearch:latest
+  ports:
+    - 9200:9200
+    - 9300:9300
+  volumes:
+    - /var/log/container/analytics/elasticsearch:/usr/share/elasticsearch/log
+    - /var/lib/container/analytics/elasticsearch/data:/usr/share/elasticsearch/data
+
+logstash:
+  image: local/logstash:latest
+  volumes:
+    - /var/log/container/analytics/logstash/:/var/log/logstash/
+  links:
+    - elasticsearch
+
+#analytics:
+#  image: local/analytics:latest
+#  volumes:
+#    - /var/log/container/analytics/logstash/:log/logstash/
+#  links:
+#    - elasticsearch
